@@ -10,6 +10,11 @@ const line =
 
 // The gate accepts a single line of 1-200 characters. Reject control
 // characters so the entry stays one clean printable line.
+// The bounty wants a single line: reject any newline inside the text,
+// so a stray line break can never slip into the entry.
+if (line.includes("\n") || line.includes("\r")) {
+  throw new Error("entry must be a single line");
+}
 if (line.length < 1 || line.length > 200) {
   throw new Error(`entry is ${line.length} characters, outside the 1-200 gate`);
 }
